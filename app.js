@@ -38,6 +38,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Request logging middleware
+app.use((req, res, next) => {
+    const timestamp = new Date().toLocaleTimeString();
+    console.log(`[${timestamp}] ${req.method} ${req.url}`);
+    next();
+});
+
 // Session configuration
 app.use(session({
     secret: 'travel-website-secret-key',
